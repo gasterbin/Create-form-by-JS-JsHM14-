@@ -44,7 +44,7 @@ inputNickname.setAttribute("placeholder", "Nickname");
 const inputEmail = document.createElement("input");
 inputEmail.setAttribute("type", "email");
 inputEmail.setAttribute("placeholder", "Email");
-inputEmail.setAttribute("autocomplete", "email");
+inputEmail.addEventListener("input", validateEmail);
 
 const inputPassword = document.createElement("input");
 inputPassword.setAttribute("type", "password");
@@ -102,6 +102,11 @@ cancelButton.textContent = "Cancel";
 cancelButton.setAttribute("type", "button");
 cancelButton.classList.add("cancel-button");
 
+const errorElement = document.createElement("div");
+errorElement.setAttribute("id", "email-error");
+errorElement.style.display = "none";
+errorElement.style.color = "red";
+
 textDiv.appendChild(h1);
 textDiv.appendChild(h3);
 
@@ -126,6 +131,7 @@ form.appendChild(cancelButton);
 
 parentDiv.appendChild(textDiv);
 parentDiv.appendChild(form);
+parentDiv.appendChild(errorElement);
 
 document.body.appendChild(parentDiv);
 
@@ -151,5 +157,21 @@ form.addEventListener("submit", function (event) {
   inputPassword.value = "";
   inputPasswordConfirmation.value = "";
 
-  alert("Account created successfully!");
 });
+
+function validateEmail() {
+  const emailInput = document.querySelector('input[type="email"]'); 
+  const emailValue = emailInput.value; 
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(emailValue)) {
+    errorElement.textContent = 'Invalid email format'; 
+    errorElement.style.display = 'block'; 
+    emailInput.classList.add('error-border'); 
+  } else {
+    errorElement.textContent = ''; 
+    errorElement.style.display = 'none'; 
+    emailInput.classList.remove('error-border'); 
+  }
+}

@@ -110,3 +110,16 @@ button {
 button:hover {
   background-color: #50519f;
 }
+
+.error-border {
+  border: 1px solid red !important; /* Устанавливаем красную рамку */
+}
+
+#email-error {
+  color: red;
+  border-left: 3px solid red;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  display: none;
+}
